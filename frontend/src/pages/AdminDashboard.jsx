@@ -59,7 +59,7 @@ function AdminDashboard() {
   if (!loggedIn) {
     return (
       <div style={{ maxWidth: '400px', margin: '100px auto', textAlign: 'center' }}>
-        <h2>🔐 Admin Login</h2>
+        <h2>Admin Login</h2>
         <input
           type="text"
           placeholder="Username"
@@ -91,7 +91,7 @@ function AdminDashboard() {
   return (
     <div style={{ maxWidth: '900px', margin: '30px auto', padding: '20px' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <h1>📋 Admin Dashboard</h1>
+        <h1>Admin Dashboard</h1>
         <div>
           <span style={{ marginRight: '15px', color: 'gray' }}>Welcome, admin!</span>
           <button

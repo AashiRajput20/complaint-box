@@ -41,7 +41,7 @@ function ComplaintForm() {
 
   return (
     <div style={{ maxWidth: '500px', margin: '50px auto', padding: '20px' }}>
-      <h1>📬 Submit a Complaint</h1>
+      <h1> Submit a Complaint</h1>
       <form onSubmit={handleSubmit}>
 
         <div style={{ marginBottom: '15px' }}>
@@ -52,12 +52,12 @@ function ComplaintForm() {
             style={{ width: '100%', padding: '8px', marginTop: '5px' }}
           >
             <option value="">Select category</option>
-            <option value="food">🍽️ Food</option>
-            <option value="wifi">📶 WiFi</option>
-            <option value="hostel">🏠 Hostel</option>
-            <option value="cleanliness">🧹 Cleanliness</option>
-            <option value="faculty">👨‍🏫 Faculty</option>
-            <option value="other">📌 Other</option>
+            <option value="food">Food</option>
+            <option value="wifi">WiFi</option>
+            <option value="hostel">Hostel</option>
+            <option value="cleanliness">Cleanliness</option>
+            <option value="faculty">Faculty</option>
+            <option value="other">Other</option>
           </select>
         </div>
 
@@ -68,9 +68,9 @@ function ComplaintForm() {
             onChange={(e) => setFormData({ ...formData, priority: e.target.value })}
             style={{ width: '100%', padding: '8px', marginTop: '5px' }}
           >
-            <option value="low">🟢 Low</option>
-            <option value="medium">🟡 Medium</option>
-            <option value="high">🔴 High</option>
+            <option value="low">Low</option>
+            <option value="medium">Medium</option>
+            <option value="high">High</option>
           </select>
         </div>
 

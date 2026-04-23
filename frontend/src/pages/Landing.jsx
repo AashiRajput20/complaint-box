@@ -58,7 +58,7 @@ function Landing() {
           }}
         >
           <div>
-            <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>🎓</div>
+            <div style={{ fontSize: '3rem', marginBottom: '1rem' }}></div>
             <h2 style={{ color: '#E3FCF9', marginBottom: '0.8rem' }}>Student</h2>
             <p style={{ color: '#4A89AC', fontSize: '0.9rem', fontStyle: 'italic' }}>
               "Why struggle in silence when you can RaiseIT?"
@@ -85,7 +85,7 @@ function Landing() {
           }}
         >
           <div>
-            <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>🔐</div>
+            <div style={{ fontSize: '3rem', marginBottom: '1rem' }}></div>
             <h2 style={{ color: '#E3FCF9', marginBottom: '0.8rem' }}>Admin</h2>
             <p style={{ color: '#4A89AC', fontSize: '0.9rem', fontStyle: 'italic' }}>
               "Problems don't fix themselves. But you can."

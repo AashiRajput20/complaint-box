@@ -33,7 +33,7 @@ function TrackComplaint() {
 
   return (
     <div style={{ maxWidth: '500px', margin: '50px auto', padding: '20px' }}>
-      <h1>🔍 Track Your Complaint</h1>
+      <h1>Track Your Complaint</h1>
 
       <div style={{ marginBottom: '20px' }}>
         <input
