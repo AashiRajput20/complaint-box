@@ -1,222 +1,167 @@
-OutLog 
+# RaiseIT 
 
-A web-based hostel leave management system that makes life easier for students, wardens, admins and security guards. No more paper forms, no more running to the warden's room — everything happens right here.
+### *"Because silence changes nothing."*
 
----
+RaiseIT is an anonymous complaint management system built for students. The idea is simple — students often have genuine problems but don't speak up because they're afraid of being identified. RaiseIT fixes that. Anyone can submit a complaint without revealing who they are, get a tracking ID, and follow up on it later. On the other side, admins get a clean dashboard to manage everything.
 
-## Why I Built This
-
-Managing hostel leaves manually is a pain. Students fill paper forms, wardens lose track of who's in and who's out, and security guards have no way to verify if a student actually has permission to leave. OutLog fixes all of that with a simple digital workflow.
+This is my first full stack project, built completely from scratch using the MERN stack.
 
 ---
 
-## What It Does
+## What it does
 
-- Students apply for leave from their phone or laptop
-- Warden gets the request and approves or rejects it
-- A gate pass with a unique pass number and QR code is automatically generated
-- Security guard enters the pass number, verifies it, and marks the student's exit
-- When the student returns, security marks them as returned
-- Everyone can see the status in real time
+Students land on the home page and choose to either submit a complaint or track an existing one. When submitting, they pick a category, set a priority level, and write their complaint. No name, no email, nothing that identifies them. The system generates a unique tracking ID like `CB-X7K2MN9A` which they can use later to check if their complaint was resolved.
+
+Admins have a separate login protected by JWT authentication. Once inside, they can see all complaints, filter them, and move them through three stages — Pending, In Progress, and Resolved.
 
 ---
 
 ## Tech Stack
 
-Built with the MERN stack — nothing fancy, just what works.
+**Frontend**
+- React.js with Vite
+- React Router for navigation
+- Axios for API calls
 
-- **MongoDB** — stores all the data
-- **Express.js** — handles the backend APIs
-- **React.js** — powers the frontend
-- **Node.js** — runs the server
-- **JWT** — handles authentication
-- **bcryptjs** — encrypts passwords
-- **qrcode** — generates QR codes for gate passes
+**Backend**
+- Node.js
+- Express.js
+- MongoDB Atlas (cloud database)
+- Mongoose (ODM)
 
----
+**Authentication**
+- JWT (JSON Web Tokens)
+- bcryptjs for password hashing
 
-## Roles
-
-There are 4 types of users in the system:
-
-**Student**
-Can apply for leave, check the status of their application, and view their gate pass once approved.
-
-**Warden**
-Receives all leave requests, can approve or reject them with a remark. For special leaves, can forward to admin if needed.
-
-**Admin**
-Handles special leave requests and anything forwarded by the warden. Has the final say.
-
-**Security Guard**
-Enters the pass number at the gate, verifies student details, marks exit when the student leaves, and marks return when they come back.
-
----
-
-## Leave Types
-
-| Type | Description |
-|---|---|
-| Home Leave | Going home for multiple days |
-| General Purpose | General outing, can include group members |
-| Emergency Leave | Urgent situation, fast tracked |
-| Special Leave | Sensitive reason, goes to admin as well |
-
----
-
-## Getting Started
-
-### Prerequisites
-- Node.js installed
-- MongoDB Atlas account (free)
-- Git
-
-### Clone the repo
-
-```bash
-git clone https://github.com/AashiRajput20/outLog.git
-cd outLog
-```
-
-### Set up the backend
-
-```bash
-cd backend
-npm install
-```
-
-Create a `.env` file inside the `backend` folder:
-
-```env
-PORT=5000
-MONGO_URI=your_mongodb_connection_string
-JWT_SECRET=your_secret_key
-```
-
-Start the backend:
-
-```bash
-nodemon server.js
-```
-
-### Set up the frontend
-
-```bash
-cd frontend
-npm install
-npm start
-```
-
-Frontend runs at `http://localhost:3000`  
-Backend runs at `http://localhost:5000`
-
----
-
-## API Endpoints
-
-### Auth
-```
-POST   /api/auth/register     Register a new user
-POST   /api/auth/login        Login and get token
-GET    /api/auth/me           Get logged in user info
-```
-
-### Leave
-```
-POST   /api/leave/apply           Student applies for leave
-GET    /api/leave/my              Get my leave applications
-GET    /api/leave/my-gatepass     Get my gate pass
-GET    /api/leave/all             Get all leaves (warden/admin)
-PUT    /api/leave/update/:id      Approve, reject or forward
-```
-
-### Security
-```
-POST   /api/security/verify        Verify a gate pass
-POST   /api/security/mark-exit     Mark student as exited
-POST   /api/security/mark-return   Mark student as returned
-GET    /api/security/all-passes    View all gate passes
-```
-
----
-
-## How the Flow Works
-
-```
-Student applies for leave
-         ↓
-Warden reviews and approves
-         ↓
-Gate pass generated automatically (pass number + QR code)
-         ↓
-Student shows pass number at the gate
-         ↓
-Security verifies and marks exit
-         ↓
-Student returns → Security marks return
-         ↓
-Done ✅
-```
+**Deployment**
+- Vercel (both frontend and backend)
+- MongoDB Atlas (database)
 
 ---
 
 ## Project Structure
 
 ```
-outLog/
+complaint-box/
 ├── backend/
-│   ├── config/
-│   │   └── db.js
-│   ├── controllers/
-│   │   ├── authController.js
-│   │   ├── leaveController.js
-│   │   └── securityController.js
 │   ├── middleware/
-│   │   └── auth.js
+│   │   └── auth.js          # JWT protection middleware
 │   ├── models/
-│   │   ├── User.js
-│   │   ├── LeaveRequest.js
-│   │   └── GatePass.js
+│   │   ├── Admin.js         # Admin schema
+│   │   └── Complaint.js     # Complaint schema
 │   ├── routes/
-│   │   ├── authRoutes.js
-│   │   ├── leaveRoutes.js
-│   │   └── securityRoutes.js
-│   ├── .env
-│   ├── .gitignore
-│   └── server.js
+│   │   ├── auth.js          # Login & register routes
+│   │   └── complaints.js    # Complaint CRUD routes
+│   ├── .env                 # Secret keys (never uploaded)
+│   ├── server.js            # Entry point
+│   └── vercel.json          # Vercel deployment config
 │
 └── frontend/
     └── src/
-        ├── context/
-        │   └── AuthContext.js
+        ├── components/
+        │   └── Navbar.jsx       # Navigation bar
         ├── pages/
-        │   ├── auth/
-        │   ├── student/
-        │   ├── warden/
-        │   ├── admin/
-        │   └── security/
-        ├── utils/
-        │   └── api.js
-        └── App.js
+        │   ├── Landing.jsx      # Home - choose Student or Admin
+        │   ├── ComplaintForm.jsx # Submit a complaint
+        │   ├── TrackComplaint.jsx # Track by ID
+        │   └── AdminDashboard.jsx # Admin panel
+        ├── services/
+        │   └── api.js           # All Axios API calls
+        └── App.jsx              # Routes setup
 ```
 
 ---
 
-## A Few Things to Note
+## API Endpoints
 
-- The `.env` file is not pushed to GitHub for obvious reasons. Create your own with your MongoDB credentials.
-- SMS notifications are not included — this is intentional to keep the project free to run.
-- The QR code on the gate pass is generated automatically and displayed in the student's dashboard. Security verifies using the pass number, not the QR scan, since it's a web app.
-
----
-
-## Live Demo
-
-Frontend: [https://outlog.vercel.app](https://outlog.vercel.app)  
-Backend: [https://outlog-backend.onrender.com](https://outlog-backend.onrender.com)
+| Method | Route | Description | Access |
+|--------|-------|-------------|--------|
+| POST | `/api/complaints` | Submit a new complaint | Public |
+| GET | `/api/complaints` | Get all complaints | Admin only |
+| GET | `/api/complaints/:id` | Track complaint by tracking ID | Public |
+| PATCH | `/api/complaints/:id` | Update complaint status | Admin only |
+| POST | `/api/auth/register` | Create admin account | One time setup |
+| POST | `/api/auth/login` | Admin login, returns JWT token | Public |
 
 ---
 
-## Built By
+## How to Run Locally
 
-Aashi Rajput — Institute Level Project
+**1. Clone the repository**
+```bash
+git clone https://github.com/AashiRajput20/complaint-box.git
+cd complaint-box
+```
+
+**2. Setup the Backend**
+```bash
+cd backend
+npm install
+```
+
+Create a `.env` file inside the `backend` folder:
+```
+PORT=5000
+MONGO_URI=your_mongodb_atlas_connection_string
+JWT_SECRET=your_secret_key
+```
+
+Start the backend:
+```bash
+nodemon server.js
+```
+
+**3. Setup the Frontend**
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+**4. Open in browser**
+```
+http://localhost:5173
+```
+
+You need both terminals running at the same time — one for backend, one for frontend.
+
+---
+
+## How Authentication Works
+
+When the admin logs in, the backend checks the credentials against the database. Passwords are never stored as plain text — they are hashed using bcryptjs before saving. If the credentials match, the server generates a JWT token signed with a secret key. This token is stored in the browser's localStorage and automatically attached to every future admin request via an Axios interceptor. The backend middleware verifies the token before allowing access to protected routes.
+
+---
+
+## Environment Variables
+
+The following environment variables are required for the backend:
+
+| Variable | Description |
+|----------|-------------|
+| `PORT` | Port number for the server (5000) |
+| `MONGO_URI` | MongoDB Atlas connection string |
+| `JWT_SECRET` | Secret key for signing JWT tokens |
+
+These are stored in `.env` locally and in Vercel's Environment Variables for production. They are never committed to GitHub.
+
+---
+
+## Deployment
+
+The project is deployed on Vercel.
+
+- Backend deployed as a serverless Node.js function using `vercel.json`
+- Frontend deployed as a static React build
+- Database hosted on MongoDB Atlas with IP access configured
+
+---
+
+## What I Learned
+
+This was my first ever full stack project. Going in, I only knew the basics of JavaScript. Building RaiseIT taught me how the frontend and backend actually talk to each other through REST APIs, how databases store and retrieve data, how authentication works in the real world, and what it actually takes to deploy a production app. Every bug I hit along the way taught me something new.
+
+
+---
+
+*Built with curiosity, a lot of debugging, and the belief that silence changes nothing.*
