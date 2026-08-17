@@ -1,4 +1,4 @@
-OutLog 🏠
+OutLog 
 
 A web-based hostel leave management system that makes life easier for students, wardens, admins and security guards. No more paper forms, no more running to the warden's room — everything happens right here.
 
